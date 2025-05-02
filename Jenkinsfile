@@ -1,24 +1,27 @@
 pipeline {
-  agent any
+    parameters {
+        string(name:'BRANCH', defaultValue: 'main', description: '빌드할 got branch')
+    }
+    agent any
 
-  stages {
-    stage('Checkout') {
-      steps {
-        echo 'Checking out code...'
-      }
-    }
-    stage('Build') {
+    stages {
+        stage('Checkout') {
         steps {
-            sh '''
-            chmod +x build.sh
-            ./build.sh
-            '''
-           }
+            echo 'Checking out code...'
         }
-    stage('Test') {
-      steps {
-        sh 'echo "Simulating test command"'
-      }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                chmod +x build.sh
+                ./build.sh
+                '''
+            }
+            }
+        stage('Test') {
+        steps {
+            sh 'echo "Simulating test command"'
+        }
+        }
     }
-  }
-}
+    }
